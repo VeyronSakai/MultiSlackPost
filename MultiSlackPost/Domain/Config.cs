@@ -2,9 +2,9 @@ namespace MultiSlackPost.Domain;
 
 public class Config
 {
-    public readonly Dictionary<string, List<string>> Channels = new();
+    public Dictionary<string, List<string>> Channels = new();
 
-    public readonly Dictionary<string, string> Tokens = new();
+    public Dictionary<string, string> Tokens = new();
 
     internal void AddChannel(string workspace, string channel)
     {
