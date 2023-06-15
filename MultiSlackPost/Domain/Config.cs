@@ -26,6 +26,20 @@ public class Config
         }
     }
 
+    internal void RemoveChannel(string workspace, string channel)
+    {
+        Channels.TryGetValue(workspace, out var channels);
+        if (channels != null && channels.Contains(channel))
+        {
+            channels.Remove(channel);
+        }
+
+        if (channels == null || channels.Count == 0)
+        {
+            Channels.Remove(workspace);
+        }
+    }
+
     internal void AddToken(string workspace, string token)
     {
         Tokens.TryAdd(workspace, token);

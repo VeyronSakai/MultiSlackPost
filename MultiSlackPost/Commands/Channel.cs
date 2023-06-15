@@ -36,6 +36,30 @@ public class Channel
         Console.WriteLine("Successfully added channel info to config file.");
     }
 
+    [Command("remove", Description = "remove channel info to config file")]
+    public async Task RemoveChannel([Option('w')] string workspace, [Option('c')] string channel)
+    {
+        Domain.Config config;
+        if (File.Exists(Def.ConfigFilePath))
+        {
+            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
+            config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
+                         new JsonSerializerOptions { IncludeFields = true }) ??
+                     throw new CommandExitedException("Deserialization resulted in null.", 1);
+
+            config.RemoveChannel(workspace, channel);
+        }
+        else
+        {
+            Console.WriteLine("Config file does not exist.");
+            throw new CommandExitedException(1);
+        }
+
+        await WriteConfigAsync(config);
+
+        Console.WriteLine("Successfully removed channel info in config file.");
+    }
+
     private static async Task WriteConfigAsync(Domain.Config config)
     {
         var json = JsonSerializer.Serialize(config, new JsonSerializerOptions { IncludeFields = true });
