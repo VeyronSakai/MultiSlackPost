@@ -5,11 +5,15 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <ToolCommandName>mslack</ToolCommandName>
+        <AssemblyName>mslack</AssemblyName>
+        <Version>0.1.0</Version>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Cocona" Version="2.2.0" />
-      <PackageReference Include="SlackAPI" Version="1.1.14" />
+        <PackageReference Include="Cocona" Version="2.2.0"/>
+        <PackageReference Include="SlackAPI" Version="1.1.14"/>
     </ItemGroup>
 
 </Project>
