@@ -11,7 +11,7 @@ namespace MultiSlackPost.Commands;
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class Post
 {
-    public async Task PostAsync([Option('b', Description = "body message")] string body)
+    public async Task PostAsync([Argument(Description = "Body message")] string body)
     {
         if (!File.Exists(Def.ConfigFilePath))
         {
