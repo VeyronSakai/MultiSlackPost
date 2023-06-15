@@ -8,9 +8,17 @@ public class Config
 
     internal void AddChannel(string workspace, string channel)
     {
+        if (channel[0] == '#')
+        {
+            channel = channel[1..];
+        }
+
         if (Channels.TryGetValue(workspace, out var channels))
         {
-            channels.Add(channel);
+            if (!channels.Contains(channel))
+            {
+                channels.Add(channel);
+            }
         }
         else
         {
