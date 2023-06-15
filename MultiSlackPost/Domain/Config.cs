@@ -22,4 +22,9 @@ public class Config
     {
         Tokens.TryAdd(workspace, token);
     }
+
+    internal void RemoveToken(string workspace)
+    {
+        Tokens.Remove(workspace);
+    }
 }

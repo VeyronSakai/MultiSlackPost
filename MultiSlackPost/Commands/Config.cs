@@ -23,8 +23,7 @@ public class Config
         }
         else
         {
-            var configDirPath = Def.ConfigDirPath;
-            Directory.CreateDirectory(configDirPath);
+            Directory.CreateDirectory(Def.ConfigDirPath);
 
             config = new Domain.Config();
             config.AddToken(workspace, token);
@@ -33,6 +32,36 @@ public class Config
         await WriteConfigAsync(config);
 
         Console.WriteLine("Successfully added token info to config file.");
+    }
+
+    [Command("rm-token", Description = "remove token info in config file")]
+    public async Task RemoveToken([Option('w')] string workspace)
+    {
+        Domain.Config config;
+        if (File.Exists(Def.ConfigFilePath))
+        {
+            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
+            config = JsonConvert.DeserializeObject<Domain.Config>(oldJson);
+
+            if (config.Tokens.ContainsKey(workspace))
+            {
+                config.RemoveToken(workspace);
+            }
+            else
+            {
+                Console.WriteLine("Config file does not contain the workspace.");
+                return;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Config file does not exist.");
+            return;
+        }
+
+        await WriteConfigAsync(config);
+
+        Console.WriteLine("Successfully removed token info in config file.");
     }
 
     private static async Task WriteConfigAsync(Domain.Config config)
