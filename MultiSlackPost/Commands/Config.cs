@@ -64,6 +64,31 @@ public class Config
         Console.WriteLine("Successfully removed token info in config file.");
     }
 
+    [Command("add-ch", Description = "add channel info to config file")]
+    public async Task AddChannel([Option('w')] string workspace,
+        [Option('c')] string channel)
+    {
+        Domain.Config config;
+        if (File.Exists(Def.ConfigFilePath))
+        {
+            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
+            config = JsonConvert.DeserializeObject<Domain.Config>(oldJson);
+            config.AddChannel(workspace, channel);
+        }
+        else
+        {
+            Directory.CreateDirectory(Def.ConfigDirPath);
+
+            config = new Domain.Config();
+            config.AddToken(workspace, channel);
+        }
+
+        await WriteConfigAsync(config);
+
+        Console.WriteLine("Successfully added channel info to config file.");
+    }
+
+
     private static async Task WriteConfigAsync(Domain.Config config)
     {
         var options = new JsonSerializerOptions
