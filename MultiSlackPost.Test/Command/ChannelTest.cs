@@ -41,11 +41,12 @@ public class ChannelTest
     }
 
     [Test]
-    public async Task RemoveChannelTest_IfConfigNExists()
+    public Task RemoveChannelTest_IfConfigNExists()
     {
         var channel = new Channel();
         var configRepository = new StubConfigRepository(false);
         Assert.That(async () => await channel.RemoveChannel("workspace", "channel", configRepository),
             Throws.TypeOf<CommandExitedException>());
+        return Task.CompletedTask;
     }
 }
