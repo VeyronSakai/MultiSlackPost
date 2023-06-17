@@ -38,7 +38,9 @@ public class Channel
     }
 
     [Command("remove", Description = "remove channel info to config file")]
-    public async Task RemoveChannel([Option('w')] string workspace, [Option('c')] string channel)
+    public async Task RemoveChannel([Option('w')] string workspace,
+        [Option('c')] string channel,
+        [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
         if (File.Exists(Def.ConfigFilePath))
@@ -56,14 +58,8 @@ public class Channel
             throw new CommandExitedException(1);
         }
 
-        await WriteConfigAsync(config);
+        await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully removed channel info in config file.");
-    }
-
-    private static async Task WriteConfigAsync(Domain.Config config)
-    {
-        var json = JsonSerializer.Serialize(config, new JsonSerializerOptions { IncludeFields = true });
-        await File.WriteAllTextAsync(Def.ConfigFilePath, json);
     }
 }
