@@ -11,7 +11,8 @@ public class Channel
 {
     [Command("add", Description = "add channel info to config file")]
     public async Task AddChannel([Option('w')] string workspace,
-        [Option('c')] string channel)
+        [Option('c')] string channel,
+        [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
         if (File.Exists(Def.ConfigFilePath))
@@ -28,10 +29,10 @@ public class Channel
             Directory.CreateDirectory(Def.ConfigDirPath);
 
             config = new Domain.Config();
-            config.AddToken(workspace, channel);
+            config.AddChannel(workspace, channel);
         }
 
-        await WriteConfigAsync(config);
+        await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully added channel info to config file.");
     }
