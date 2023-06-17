@@ -1,4 +1,4 @@
-name: test
+name: Test
 
 on:
   pull_request:
@@ -27,3 +27,9 @@ jobs:
       with:
         name: test-results
         path: '**/TestResults/result.xml'
+    - name: Report Test Results
+      if: success() || failure()
+      uses: mikepenz/action-junit-report@v3
+      with:
+        report_paths: '**/TestResults/result.xml'
+
