@@ -15,7 +15,7 @@ public class Channel
         [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
-        if (File.Exists(Def.ConfigFilePath))
+        if (ConfigService.Exists())
         {
             var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
             config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
@@ -43,7 +43,7 @@ public class Channel
         [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
-        if (File.Exists(Def.ConfigFilePath))
+        if (ConfigService.Exists())
         {
             var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
             config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
