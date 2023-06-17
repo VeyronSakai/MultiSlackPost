@@ -1,9 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Cocona;
 using MultiSlackPost.Domain;
 using SlackAPI;
-using File = System.IO.File;
 
 namespace MultiSlackPost.Commands;
 
@@ -11,17 +9,15 @@ namespace MultiSlackPost.Commands;
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class Post
 {
-    public async Task PostAsync([Argument(Description = "Body message")] string body)
+    public async Task PostAsync([Argument(Description = "Body message")] string body,
+        [FromService] IConfigRepository configRepository)
     {
-        if (!File.Exists(Def.ConfigFilePath))
+        if (!ConfigService.Exists())
         {
             throw new CommandExitedException("configuration does not exist", 1);
         }
 
-        var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
-        var config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
-                         new JsonSerializerOptions { IncludeFields = true }) ??
-                     throw new CommandExitedException("Deserialization resulted in null.", 1);
+        var config = await configRepository.GetAsync();
 
         var tasks = new List<Task>();
 

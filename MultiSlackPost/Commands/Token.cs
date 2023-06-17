@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Cocona;
 using MultiSlackPost.Domain;
 
@@ -14,19 +13,7 @@ public class Token
         [Option('t')] string token,
         [FromService] IConfigRepository configRepository)
     {
-        Domain.Config config;
-        if (File.Exists(Def.ConfigFilePath))
-        {
-            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
-            config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
-                         new JsonSerializerOptions { IncludeFields = true }) ??
-                     throw new CommandExitedException("Deserialization resulted in null.", 1);
-        }
-        else
-        {
-            config = new Domain.Config();
-        }
-
+        var config = ConfigService.Exists() ? await configRepository.GetAsync() : new Domain.Config();
         config.AddToken(workspace, token);
         await configRepository.SaveAsync(config);
 
@@ -36,30 +23,13 @@ public class Token
     [Command("remove", Description = "remove token info in config file")]
     public async Task RemoveToken([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
     {
-        Domain.Config config;
-        if (File.Exists(Def.ConfigFilePath))
+        if (!ConfigService.Exists())
         {
-            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
-            config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
-                         new JsonSerializerOptions { IncludeFields = true }) ??
-                     throw new CommandExitedException("Deserialization resulted in null.", 1);
-
-            if (config.Tokens.ContainsKey(workspace))
-            {
-                config.RemoveToken(workspace);
-            }
-            else
-            {
-                Console.WriteLine("Config file does not contain the workspace.");
-                throw new CommandExitedException(1);
-            }
-        }
-        else
-        {
-            Console.WriteLine("Config file does not exist.");
-            throw new CommandExitedException(1);
+            throw new CommandExitedException("Config file does not exist.", 1);
         }
 
+        var config = await configRepository.GetAsync();
+        config.RemoveToken(workspace);
         await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully removed token info in config file.");

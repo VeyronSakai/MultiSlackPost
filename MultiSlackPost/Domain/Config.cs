@@ -1,3 +1,5 @@
+using Cocona;
+
 namespace MultiSlackPost.Domain;
 
 public class Config
@@ -42,11 +44,16 @@ public class Config
 
     internal void AddToken(string workspace, string token)
     {
-        Tokens.TryAdd(workspace, token);
+        Tokens[workspace] = token;
     }
 
     internal void RemoveToken(string workspace)
     {
+        if (!Tokens.ContainsKey(workspace))
+        {
+            throw new CommandExitedException("Config file does not contain the workspace in Tokens.", 1);
+        }
+
         Tokens.Remove(workspace);
     }
 }
