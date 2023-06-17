@@ -6,10 +6,11 @@ namespace MultiSlackPost.Commands;
 
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
+[SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
 public class Channel
 {
     [Command("add", Description = "add channel info to config file")]
-    public async Task AddChannel([Option('w')] string workspace,
+    public async Task AddChannelAsync([Option('w')] string workspace,
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
