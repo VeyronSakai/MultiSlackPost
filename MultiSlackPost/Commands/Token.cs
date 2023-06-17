@@ -21,16 +21,13 @@ public class Token
             config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
                          new JsonSerializerOptions { IncludeFields = true }) ??
                      throw new CommandExitedException("Deserialization resulted in null.", 1);
-            config.AddToken(workspace, token);
         }
         else
         {
-            Directory.CreateDirectory(Def.ConfigDirPath);
-
             config = new Domain.Config();
-            config.AddToken(workspace, token);
         }
 
+        config.AddToken(workspace, token);
         await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully added token info to config file.");

@@ -21,17 +21,13 @@ public class Channel
             config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
                          new JsonSerializerOptions { IncludeFields = true }) ??
                      throw new CommandExitedException("Deserialization resulted in null.", 1);
-
-            config.AddChannel(workspace, channel);
         }
         else
         {
-            Directory.CreateDirectory(Def.ConfigDirPath);
-
             config = new Domain.Config();
-            config.AddChannel(workspace, channel);
         }
 
+        config.AddChannel(workspace, channel);
         await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully added channel info to config file.");
