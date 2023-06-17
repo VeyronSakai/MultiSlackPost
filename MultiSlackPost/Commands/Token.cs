@@ -11,7 +11,8 @@ public class Token
 {
     [Command("add", Description = "add token info to config file")]
     public async Task Add([Option('w')] string workspace,
-        [Option('t')] string token)
+        [Option('t')] string token,
+        [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
         if (File.Exists(Def.ConfigFilePath))
@@ -30,13 +31,13 @@ public class Token
             config.AddToken(workspace, token);
         }
 
-        await WriteConfigAsync(config);
+        await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully added token info to config file.");
     }
 
     [Command("remove", Description = "remove token info in config file")]
-    public async Task RemoveToken([Option('w')] string workspace)
+    public async Task RemoveToken([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
     {
         Domain.Config config;
         if (File.Exists(Def.ConfigFilePath))
@@ -62,14 +63,8 @@ public class Token
             throw new CommandExitedException(1);
         }
 
-        await WriteConfigAsync(config);
+        await configRepository.SaveAsync(config);
 
         Console.WriteLine("Successfully removed token info in config file.");
-    }
-
-    private static async Task WriteConfigAsync(Domain.Config config)
-    {
-        var json = JsonSerializer.Serialize(config, new JsonSerializerOptions { IncludeFields = true });
-        await File.WriteAllTextAsync(Def.ConfigFilePath, json);
     }
 }
