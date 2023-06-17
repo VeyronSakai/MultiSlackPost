@@ -8,7 +8,7 @@ public class Config
 
     public Dictionary<string, string> Tokens = new();
 
-    internal void AddChannel(string workspace, string channel)
+    public void AddChannel(string workspace, string channel)
     {
         if (channel[0] == '#')
         {
@@ -28,7 +28,7 @@ public class Config
         }
     }
 
-    internal void RemoveChannel(string workspace, string channel)
+    public void RemoveChannel(string workspace, string channel)
     {
         Channels.TryGetValue(workspace, out var channels);
         if (channels != null && channels.Contains(channel))
@@ -42,12 +42,12 @@ public class Config
         }
     }
 
-    internal void AddToken(string workspace, string token)
+    public void AddToken(string workspace, string token)
     {
         Tokens[workspace] = token;
     }
 
-    internal void RemoveToken(string workspace)
+    public void RemoveToken(string workspace)
     {
         if (!Tokens.ContainsKey(workspace))
         {
