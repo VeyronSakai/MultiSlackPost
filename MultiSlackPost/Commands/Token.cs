@@ -6,10 +6,11 @@ namespace MultiSlackPost.Commands;
 
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
+[SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
 public class Token
 {
     [Command("add", Description = "add token info to config file")]
-    public async Task Add([Option('w')] string workspace,
+    public async Task AddTokenAsync([Option('w')] string workspace,
         [Option('t')] string token,
         [FromService] IConfigRepository configRepository)
     {
@@ -21,7 +22,7 @@ public class Token
     }
 
     [Command("remove", Description = "remove token info in config file")]
-    public async Task RemoveToken([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
+    public async Task RemoveTokenAsync([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
     {
         if (!configRepository.Exists())
         {

@@ -45,7 +45,7 @@ public class ChannelTest
     {
         var channel = new Channel();
         var configRepository = new StubConfigRepository(false);
-        Assert.That(async () => await channel.RemoveChannel("workspace", "channel", configRepository),
+        Assert.That(async () => await channel.RemoveChannelAsync("workspace", "channel", configRepository),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }

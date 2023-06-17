@@ -22,7 +22,7 @@ public class Channel
     }
 
     [Command("remove", Description = "remove channel info to config file")]
-    public async Task RemoveChannel([Option('w')] string workspace,
+    public async Task RemoveChannelAsync([Option('w')] string workspace,
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
