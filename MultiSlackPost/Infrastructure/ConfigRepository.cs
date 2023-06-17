@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Cocona;
 using MultiSlackPost.Domain;
 
 namespace MultiSlackPost.Infrastructure;
@@ -12,8 +13,11 @@ public class ConfigRepository : IConfigRepository
         await File.WriteAllTextAsync(Def.ConfigFilePath, json);
     }
 
-    public Task<Config> LoadAsync()
+    public async Task<Config> GetAsync()
     {
-        throw new NotImplementedException();
+        var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
+        return JsonSerializer.Deserialize<Config>(oldJson,
+                   new JsonSerializerOptions { IncludeFields = true }) ??
+               throw new CommandExitedException("Deserialization resulted in null.", 1);
     }
 }

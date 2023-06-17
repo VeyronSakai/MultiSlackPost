@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Cocona;
 using MultiSlackPost.Domain;
 
@@ -14,19 +13,7 @@ public class Channel
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
-        Domain.Config config;
-        if (ConfigService.Exists())
-        {
-            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
-            config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
-                         new JsonSerializerOptions { IncludeFields = true }) ??
-                     throw new CommandExitedException("Deserialization resulted in null.", 1);
-        }
-        else
-        {
-            config = new Domain.Config();
-        }
-
+        var config = ConfigService.Exists() ? await configRepository.GetAsync() : new Domain.Config();
         config.AddChannel(workspace, channel);
         await configRepository.SaveAsync(config);
 
@@ -38,21 +25,11 @@ public class Channel
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
-        Domain.Config config;
-        if (ConfigService.Exists())
-        {
-            var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
-            config = JsonSerializer.Deserialize<Domain.Config>(oldJson,
-                         new JsonSerializerOptions { IncludeFields = true }) ??
-                     throw new CommandExitedException("Deserialization resulted in null.", 1);
+        var config = ConfigService.Exists()
+            ? await configRepository.GetAsync()
+            : throw new CommandExitedException("Config file does not exist.", 1);
 
-            config.RemoveChannel(workspace, channel);
-        }
-        else
-        {
-            Console.WriteLine("Config file does not exist.");
-            throw new CommandExitedException(1);
-        }
+        config.RemoveChannel(workspace, channel);
 
         await configRepository.SaveAsync(config);
 
