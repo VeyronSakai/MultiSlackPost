@@ -13,7 +13,7 @@ public class Channel
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
-        var config = ConfigService.Exists() ? await configRepository.GetAsync() : new Domain.Config();
+        var config = configRepository.Exists() ? await configRepository.GetAsync() : new Domain.Config();
         config.AddChannel(workspace, channel);
         await configRepository.SaveAsync(config);
 
@@ -25,7 +25,7 @@ public class Channel
         [Option('c')] string channel,
         [FromService] IConfigRepository configRepository)
     {
-        var config = ConfigService.Exists()
+        var config = configRepository.Exists()
             ? await configRepository.GetAsync()
             : throw new CommandExitedException("Config file does not exist.", 1);
 

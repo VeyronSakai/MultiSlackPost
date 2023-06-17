@@ -20,4 +20,9 @@ public class ConfigRepository : IConfigRepository
                    new JsonSerializerOptions { IncludeFields = true }) ??
                throw new CommandExitedException("Deserialization resulted in null.", 1);
     }
+
+    public bool Exists()
+    {
+        return File.Exists(Def.ConfigFilePath);
+    }
 }

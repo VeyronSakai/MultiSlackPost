@@ -12,7 +12,7 @@ public class Post
     public async Task PostAsync([Argument(Description = "Body message")] string body,
         [FromService] IConfigRepository configRepository)
     {
-        if (!ConfigService.Exists())
+        if (!configRepository.Exists())
         {
             throw new CommandExitedException("configuration does not exist", 1);
         }

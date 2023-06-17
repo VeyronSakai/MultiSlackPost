@@ -13,7 +13,7 @@ public class Token
         [Option('t')] string token,
         [FromService] IConfigRepository configRepository)
     {
-        var config = ConfigService.Exists() ? await configRepository.GetAsync() : new Domain.Config();
+        var config = configRepository.Exists() ? await configRepository.GetAsync() : new Domain.Config();
         config.AddToken(workspace, token);
         await configRepository.SaveAsync(config);
 
@@ -23,7 +23,7 @@ public class Token
     [Command("remove", Description = "remove token info in config file")]
     public async Task RemoveToken([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
     {
-        if (!ConfigService.Exists())
+        if (!configRepository.Exists())
         {
             throw new CommandExitedException("Config file does not exist.", 1);
         }
