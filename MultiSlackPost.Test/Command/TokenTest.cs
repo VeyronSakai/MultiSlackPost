@@ -12,7 +12,7 @@ public class TokenTest
     {
         var token = new Token();
         var configRepository = new StubConfigRepository(false);
-        await token.AddTokenAsync("workspace", "token", configRepository);
+        await token.AddTokenAsync("workspace", "token", configRepository, Util.GetLogger<Token>());
         var config = configRepository.Config;
         Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
     }
@@ -40,7 +40,7 @@ public class TokenTest
                 }
             }
         });
-        await token.AddTokenAsync("workspace", "token", configRepository);
+        await token.AddTokenAsync("workspace", "token", configRepository, Util.GetLogger<Token>());
         var config = configRepository.Config;
         Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
     }
@@ -50,7 +50,7 @@ public class TokenTest
     {
         var token = new Token();
         var configRepository = new StubConfigRepository(false);
-        Assert.That(async () => await token.RemoveTokenAsync("workspace", configRepository),
+        Assert.That(async () => await token.RemoveTokenAsync("workspace", configRepository, Util.GetLogger<Token>()),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }
@@ -78,7 +78,7 @@ public class TokenTest
                 }
             }
         });
-        await token.RemoveTokenAsync("workspace0", configRepository);
+        await token.RemoveTokenAsync("workspace0", configRepository, Util.GetLogger<Token>());
         var config = configRepository.Config;
         Assert.That(config?.Tokens.ContainsKey("workspace0"), Is.False);
     }

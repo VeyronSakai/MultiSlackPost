@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Cocona;
+using Microsoft.Extensions.Logging;
 using MultiSlackPost.Domain;
+using ZLogger;
 
 namespace MultiSlackPost.Commands;
 
@@ -12,17 +14,20 @@ public class Token
     [Command("add", Description = "add token info to config file")]
     public async Task AddTokenAsync([Option('w')] string workspace,
         [Option('t')] string token,
-        [FromService] IConfigRepository configRepository)
+        [FromService] IConfigRepository configRepository,
+        [FromService] ILogger<Token> logger)
     {
         var config = configRepository.Exists() ? await configRepository.GetAsync() : new Domain.Config();
         config.AddToken(workspace, token);
         await configRepository.SaveAsync(config);
 
-        Console.WriteLine("Successfully added token info to config file.");
+        logger.ZLogInformation("Successfully added token info to config file.");
     }
 
     [Command("remove", Description = "remove token info in config file")]
-    public async Task RemoveTokenAsync([Option('w')] string workspace, [FromService] IConfigRepository configRepository)
+    public async Task RemoveTokenAsync([Option('w')] string workspace,
+        [FromService] IConfigRepository configRepository,
+        [FromService] ILogger<Token> logger)
     {
         if (!configRepository.Exists())
         {
@@ -33,6 +38,6 @@ public class Token
         config.RemoveToken(workspace);
         await configRepository.SaveAsync(config);
 
-        Console.WriteLine("Successfully removed token info in config file.");
+        logger.ZLogInformation("Successfully removed token info in config file.");
     }
 }
