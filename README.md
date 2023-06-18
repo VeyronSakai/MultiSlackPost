@@ -32,7 +32,7 @@ mslack config channel add -w "workspace1" -c "channel1"
 mslack config channel add -w "workspace1" -c "channel2"
 mslack config channel add -w "workspace2" -c "channel3"
 mslack config channel add -w "workspace2" -c "channel4"
-# It does not matter if the channel name is prefixed with #, as in #channel.
+# It does not matter if the channel name is prefixed with #, as #channel.
 
 mslack config token add -w "workspace1" -t "token1"
 mslack config token add -w "workspace2" -t "token2"
