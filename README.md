@@ -47,5 +47,5 @@ These information is stored in `~/.config/mslack/config.json`.
 ### Post to multiple channels
 
 ```bash
-mslack post "I'm not feeling well so I'm taking the day off."
+mslack post "Hello, World!"
 ```
