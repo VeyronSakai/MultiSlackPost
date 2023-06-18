@@ -11,7 +11,8 @@ namespace MultiSlackPost.Commands;
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class Post
 {
-    public async Task PostAsync([Argument(Description = "Body message")] string body,
+    [Command(Description = "post message to channels")]
+    public async Task PostAsync([Argument(Description = "body message")] string body,
         [FromService] IConfigRepository configRepository,
         [FromService] ILogger<Channel> logger)
     {
