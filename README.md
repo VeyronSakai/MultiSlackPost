@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml)
 
-CLI tool for posting to multiple Slack channels simultaneously.
+CLI tool to post the same message to multiple Slack channels simultaneously.
 
 [NuGet.org](https://www.nuget.org/packages/mslack)
 
