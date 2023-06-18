@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Cocona;
+using Microsoft.Extensions.Logging;
 using MultiSlackPost.Domain;
 using SlackAPI;
+using ZLogger;
 
 namespace MultiSlackPost.Commands;
 
@@ -10,7 +12,8 @@ namespace MultiSlackPost.Commands;
 public class Post
 {
     public async Task PostAsync([Argument(Description = "Body message")] string body,
-        [FromService] IConfigRepository configRepository)
+        [FromService] IConfigRepository configRepository,
+        [FromService] ILogger<Channel> logger)
     {
         if (!configRepository.Exists())
         {
@@ -31,11 +34,25 @@ public class Post
 
             foreach (var channel in channels)
             {
-                var slackClient = new SlackTaskClient(token);
-                tasks.Add(slackClient.PostMessageAsync(channel, body));
+                tasks.Add(SendAsync(channel, workspace, body, token, logger));
             }
         }
 
         await Task.WhenAll(tasks);
+    }
+
+    private static async Task SendAsync(string channel, string workspace, string body, string token, ILogger logger)
+    {
+        var slackClient = new SlackTaskClient(token);
+        var response = await slackClient.PostMessageAsync(channel, body);
+        if (response.ok)
+        {
+            logger.ZLogInformation($"Successfully posted message to #{channel} in workspace {workspace}");
+        }
+        else
+        {
+            throw new CommandExitedException(
+                $"An error occurred when posting to #{channel} in workspace {workspace}. Error: {response.error}", 1);
+        }
     }
 }

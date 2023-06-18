@@ -3,5 +3,6 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::DD21EBC2-836A-4504-9862-018DC19290FC::net6.0::MultiSlackPost.Test.Command.ChannelTest&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::DD21EBC2-836A-4504-9862-018DC19290FC::net6.0::MultiSlackPost.Test.Command.TokenTest&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::DD21EBC2-836A-4504-9862-018DC19290FC::net6.0::MultiSlackPost.Test.Domain.ConfigTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

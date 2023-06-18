@@ -12,7 +12,7 @@ public class ChannelTest
     {
         var channel = new Channel();
         var configRepository = new StubConfigRepository(false);
-        await channel.AddChannelAsync("workspace", "channel", configRepository);
+        await channel.AddChannelAsync("workspace", "channel", configRepository, Util.GetLogger<Channel>());
         var config = configRepository.Config;
         Assert.That(config?.Channels["workspace"], Is.EqualTo(new List<string> { "channel" }));
     }
@@ -34,8 +34,7 @@ public class ChannelTest
                 }
             },
         });
-
-        await channel.AddChannelAsync("workspace", "channel", configRepository);
+        await channel.AddChannelAsync("workspace", "channel", configRepository, Util.GetLogger<Channel>());
         var config = configRepository.Config;
         Assert.That(config?.Channels["workspace"], Is.EqualTo(new List<string> { "channel" }));
     }
@@ -45,7 +44,9 @@ public class ChannelTest
     {
         var channel = new Channel();
         var configRepository = new StubConfigRepository(false);
-        Assert.That(async () => await channel.RemoveChannelAsync("workspace", "channel", configRepository),
+        Assert.That(
+            async () => await channel.RemoveChannelAsync("workspace", "channel", configRepository,
+                Util.GetLogger<Channel>()),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }

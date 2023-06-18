@@ -1,9 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cocona;
+using Cysharp.Text;
 using MultiSlackPost.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MultiSlackPost.Domain;
 using MultiSlackPost.Infrastructure;
+using ZLogger;
 
 namespace MultiSlackPost;
 
@@ -17,6 +20,15 @@ public class Program
     {
         CoconaApp
             .CreateHostBuilder()
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddZLoggerConsole(options =>
+                {
+                    var prefixFormat = ZString.PrepareUtf8<LogLevel>("[{0}]: ");
+                    options.PrefixFormatter = (writer, info) => prefixFormat.FormatTo(ref writer, info.LogLevel);
+                });
+            })
             .ConfigureServices(services => { services.AddTransient<IConfigRepository, ConfigRepository>(); })
             .Run<Program>(args);
     }
