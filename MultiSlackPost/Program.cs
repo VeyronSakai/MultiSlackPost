@@ -12,6 +12,7 @@ namespace MultiSlackPost;
 
 [HasSubCommands(typeof(ConfigCommand), "config", Description = "config set command")]
 [HasSubCommands(typeof(PostCommand), "post", Description = "post message command")]
+[HasSubCommands(typeof(PrintCommand), "print", Description = "print latest message user posted")]
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class Program
@@ -26,7 +27,13 @@ public class Program
                 logging.AddZLoggerConsole(options =>
                 {
                     var prefixFormat = ZString.PrepareUtf8<LogLevel>("[{0}]: ");
-                    options.PrefixFormatter = (writer, info) => prefixFormat.FormatTo(ref writer, info.LogLevel);
+                    options.PrefixFormatter = (writer, info) =>
+                    {
+                        if (info.LogLevel != LogLevel.None)
+                        {
+                            prefixFormat.FormatTo(ref writer, info.LogLevel);
+                        }
+                    };
                 });
             })
             .ConfigureServices(services =>
