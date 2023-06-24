@@ -9,14 +9,14 @@
         <AssemblyName>mslack</AssemblyName>
         <Version>0.1.4</Version>
         <PackAsTool>true</PackAsTool>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageRadmeFile>README.md</PackageRadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Cocona" Version="2.2.0" />
         <PackageReference Include="SlackAPI" Version="1.1.14" />
         <PackageReference Include="ZLogger" Version="1.7.0" />
-        <None Include="../README.md" Pack="true" PackagePath="/"/>
+        <None Include="../README.md" Pack="true" PackagePath="/" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using Cocona;
 using MultiSlackPost.Domain;
 
-namespace MultiSlackPost.Test;
+namespace MultiSlackPost.Test.TestDouble;
 
 public class StubConfigRepository : IConfigRepository
 {

@@ -5,16 +5,16 @@ using MultiSlackPost.Domain;
 using SlackAPI;
 using ZLogger;
 
-namespace MultiSlackPost.Commands;
+namespace MultiSlackPost.Command;
 
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
-public class Post
+public class PostCommand
 {
     [Command(Description = "post message to channels")]
     public async Task PostAsync([Argument(Description = "body message")] string body,
         [FromService] IConfigRepository configRepository,
-        [FromService] ILogger<Channel> logger)
+        [FromService] ILogger<ChannelCommand> logger)
     {
         if (!configRepository.Exists())
         {
