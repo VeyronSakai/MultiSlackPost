@@ -15,6 +15,11 @@ public class ConfigRepository : IConfigRepository
 
     public async Task<Config> GetAsync()
     {
+        if (!Exists())
+        {
+            throw new CommandExitedException("Config file does not exist.", 1);
+        }
+
         var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
         return JsonSerializer.Deserialize<Config>(oldJson,
                    new JsonSerializerOptions { IncludeFields = true }) ??

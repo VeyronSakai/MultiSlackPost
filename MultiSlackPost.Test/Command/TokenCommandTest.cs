@@ -1,5 +1,6 @@
 using Cocona;
 using MultiSlackPost.Command;
+using MultiSlackPost.Infrastructure;
 using MultiSlackPost.Test.TestDouble;
 using Config = MultiSlackPost.Domain.Config;
 
@@ -13,9 +14,16 @@ public class TokenCommandTest
     {
         var token = new TokenCommand();
         var configRepository = new StubConfigRepository(false);
-        await token.AddTokenAsync("workspace", "token", configRepository, Util.GetLogger<TokenCommand>());
-        var config = configRepository.Config;
-        Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
+        var configFactory = new ConfigFactory(configRepository);
+        await token.AddTokenAsync(
+            "workspace",
+            "token",
+            configFactory,
+            configRepository,
+            Util.GetLogger<TokenCommand>()
+        );
+        var config = await configRepository.GetAsync();
+        Assert.That(config.Tokens["workspace"], Is.EqualTo("token"));
     }
 
     [Test]
@@ -23,6 +31,7 @@ public class TokenCommandTest
     {
         var token = new TokenCommand();
         var configRepository = new StubConfigRepository(true);
+        var configFactory = new ConfigFactory(configRepository);
         await configRepository.SaveAsync(new Config()
         {
             Channels = new Dictionary<string, List<string>>
@@ -41,8 +50,9 @@ public class TokenCommandTest
                 }
             }
         });
-        await token.AddTokenAsync("workspace", "token", configRepository, Util.GetLogger<TokenCommand>());
-        var config = configRepository.Config;
+        await token.AddTokenAsync("workspace", "token", configFactory, configRepository,
+            Util.GetLogger<TokenCommand>());
+        var config = await configRepository.GetAsync();
         Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
     }
 
@@ -51,7 +61,13 @@ public class TokenCommandTest
     {
         var token = new TokenCommand();
         var configRepository = new StubConfigRepository(false);
-        Assert.That(async () => await token.RemoveTokenAsync("workspace", configRepository, Util.GetLogger<TokenCommand>()),
+        var configFactory = new ConfigFactory(configRepository);
+        Assert.That(async () => await token.RemoveTokenAsync(
+                "workspace",
+                configFactory,
+                configRepository,
+                Util.GetLogger<TokenCommand>()
+            ),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }
@@ -61,6 +77,7 @@ public class TokenCommandTest
     {
         var token = new TokenCommand();
         var configRepository = new StubConfigRepository(true);
+        var configFactory = new ConfigFactory(configRepository);
         await configRepository.SaveAsync(new Config()
         {
             Channels = new Dictionary<string, List<string>>
@@ -79,8 +96,14 @@ public class TokenCommandTest
                 }
             }
         });
-        await token.RemoveTokenAsync("workspace0", configRepository, Util.GetLogger<TokenCommand>());
-        var config = configRepository.Config;
-        Assert.That(config?.Tokens.ContainsKey("workspace0"), Is.False);
+
+        await token.RemoveTokenAsync(
+            "workspace0",
+            configFactory,
+            configRepository,
+            Util.GetLogger<TokenCommand>()
+        );
+        var config = await configRepository.GetAsync();
+        Assert.That(config.Tokens.ContainsKey("workspace0"), Is.False);
     }
 }
