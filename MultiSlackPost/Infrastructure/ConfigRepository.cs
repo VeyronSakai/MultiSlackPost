@@ -8,9 +8,9 @@ public class ConfigRepository : IConfigRepository
 {
     public async Task SaveAsync(Config config)
     {
-        Directory.CreateDirectory(Def.ConfigDirPath);
+        Directory.CreateDirectory(Const.ConfigDirPath);
         var json = JsonSerializer.Serialize(config, new JsonSerializerOptions { IncludeFields = true });
-        await File.WriteAllTextAsync(Def.ConfigFilePath, json);
+        await File.WriteAllTextAsync(Const.ConfigFilePath, json);
     }
 
     public async Task<Config> GetAsync()
@@ -20,7 +20,7 @@ public class ConfigRepository : IConfigRepository
             throw new CommandExitedException("Config file does not exist.", 1);
         }
 
-        var oldJson = await File.ReadAllTextAsync(Def.ConfigFilePath);
+        var oldJson = await File.ReadAllTextAsync(Const.ConfigFilePath);
         return JsonSerializer.Deserialize<Config>(oldJson,
                    new JsonSerializerOptions { IncludeFields = true }) ??
                throw new CommandExitedException("Deserialization resulted in null.", 1);
@@ -28,6 +28,6 @@ public class ConfigRepository : IConfigRepository
 
     public bool Exists()
     {
-        return File.Exists(Def.ConfigFilePath);
+        return File.Exists(Const.ConfigFilePath);
     }
 }

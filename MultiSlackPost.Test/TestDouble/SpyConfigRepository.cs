@@ -3,12 +3,12 @@ using MultiSlackPost.Domain;
 
 namespace MultiSlackPost.Test.TestDouble;
 
-public class StubConfigRepository : IConfigRepository
+public class SpyConfigRepository : IConfigRepository
 {
     private readonly bool _existsConfig;
     internal Config? Config;
 
-    public StubConfigRepository(bool existsConfig)
+    public SpyConfigRepository(bool existsConfig)
     {
         _existsConfig = existsConfig;
     }
