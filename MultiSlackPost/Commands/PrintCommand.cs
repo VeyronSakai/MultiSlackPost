@@ -10,7 +10,7 @@ namespace MultiSlackPost.Commands;
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class PrintCommand
 {
-    [Command(Description = "Print latest message which user posted to channels")]
+    [Command(Description = "Print messages already posted to each channel")]
     public async Task PrintAsync(
         [FromService] IConfigRepository configRepository,
         [FromService] ISlackClientFactory slackClientFactory,

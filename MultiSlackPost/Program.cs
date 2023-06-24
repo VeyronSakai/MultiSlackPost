@@ -11,8 +11,8 @@ using ZLogger;
 namespace MultiSlackPost;
 
 [HasSubCommands(typeof(ConfigCommand), "config", Description = "config set command")]
-[HasSubCommands(typeof(PostCommand), "post", Description = "post message command")]
-[HasSubCommands(typeof(PrintCommand), "print", Description = "print latest message user posted")]
+[HasSubCommands(typeof(PostCommand), "post", Description = "post message to channels")]
+[HasSubCommands(typeof(PrintCommand), "print", Description = "print messages already posted to each channel")]
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class Program

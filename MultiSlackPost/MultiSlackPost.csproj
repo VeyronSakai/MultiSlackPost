@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
         <ToolCommandName>mslack</ToolCommandName>
         <AssemblyName>mslack</AssemblyName>
-        <Version>0.1.6</Version>
+        <Version>0.1.7</Version>
         <PackAsTool>true</PackAsTool>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
