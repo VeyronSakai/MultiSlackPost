@@ -31,12 +31,17 @@ public class Config
     public void RemoveChannel(string workspace, string channel)
     {
         Channels.TryGetValue(workspace, out var channels);
-        if (channels != null && channels.Contains(channel))
+        if (channels == null)
+        {
+            throw new CommandExitedException(1);
+        }
+
+        if (channels.Contains(channel))
         {
             channels.Remove(channel);
         }
 
-        if (channels == null || channels.Count == 0)
+        if (channels.Count == 0)
         {
             Channels.Remove(workspace);
         }
