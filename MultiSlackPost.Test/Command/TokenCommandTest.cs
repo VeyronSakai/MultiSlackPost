@@ -13,14 +13,14 @@ public class TokenCommandTest
     public async Task AddTokenTest_IfConfigNotExists()
     {
         var token = new TokenCommand();
-        var configRepository = new StubConfigRepository(false);
+        var configRepository = new SpyConfigRepository(false);
         var configFactory = new ConfigFactory(configRepository);
         await token.AddTokenAsync(
             "workspace",
             "token",
             configFactory,
             configRepository,
-            Util.GetLogger<TokenCommand>()
+            Helper.GetLogger<TokenCommand>()
         );
         var config = await configRepository.GetAsync();
         Assert.That(config.Tokens["workspace"], Is.EqualTo("token"));
@@ -30,7 +30,7 @@ public class TokenCommandTest
     public async Task AddToken_IfConfigExists()
     {
         var token = new TokenCommand();
-        var configRepository = new StubConfigRepository(true);
+        var configRepository = new SpyConfigRepository(true);
         var configFactory = new ConfigFactory(configRepository);
         await configRepository.SaveAsync(new Config()
         {
@@ -51,7 +51,7 @@ public class TokenCommandTest
             }
         });
         await token.AddTokenAsync("workspace", "token", configFactory, configRepository,
-            Util.GetLogger<TokenCommand>());
+            Helper.GetLogger<TokenCommand>());
         var config = await configRepository.GetAsync();
         Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
     }
@@ -60,13 +60,13 @@ public class TokenCommandTest
     public Task RemoveTokenTest_IfConfigNotExists()
     {
         var token = new TokenCommand();
-        var configRepository = new StubConfigRepository(false);
+        var configRepository = new SpyConfigRepository(false);
         var configFactory = new ConfigFactory(configRepository);
         Assert.That(async () => await token.RemoveTokenAsync(
                 "workspace",
                 configFactory,
                 configRepository,
-                Util.GetLogger<TokenCommand>()
+                Helper.GetLogger<TokenCommand>()
             ),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
@@ -76,7 +76,7 @@ public class TokenCommandTest
     public async Task RemoveTokenTest_IfConfigExists()
     {
         var token = new TokenCommand();
-        var configRepository = new StubConfigRepository(true);
+        var configRepository = new SpyConfigRepository(true);
         var configFactory = new ConfigFactory(configRepository);
         await configRepository.SaveAsync(new Config()
         {
@@ -101,7 +101,7 @@ public class TokenCommandTest
             "workspace0",
             configFactory,
             configRepository,
-            Util.GetLogger<TokenCommand>()
+            Helper.GetLogger<TokenCommand>()
         );
         var config = await configRepository.GetAsync();
         Assert.That(config.Tokens.ContainsKey("workspace0"), Is.False);

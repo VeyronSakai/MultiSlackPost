@@ -13,7 +13,7 @@ public class ChannelCommandTest
     public async Task AddChannelTest_IfConfigNotExists()
     {
         var channel = new ChannelCommand();
-        var configRepository = new StubConfigRepository(false);
+        var configRepository = new SpyConfigRepository(false);
         var configFactory = new ConfigFactory(configRepository);
 
         await channel.AddChannelAsync(
@@ -21,7 +21,7 @@ public class ChannelCommandTest
             "channel",
             configFactory,
             configRepository,
-            Util.GetLogger<ChannelCommand>()
+            Helper.GetLogger<ChannelCommand>()
         );
 
         var config = await configRepository.GetAsync();
@@ -33,7 +33,7 @@ public class ChannelCommandTest
     public async Task AddChannelTest_IfConfigExists()
     {
         var channel = new ChannelCommand();
-        var configRepository = new StubConfigRepository(true);
+        var configRepository = new SpyConfigRepository(true);
         var configFactory = new ConfigFactory(configRepository);
         await configRepository.SaveAsync(new Config
         {
@@ -53,7 +53,7 @@ public class ChannelCommandTest
             "channel",
             configFactory,
             configRepository,
-            Util.GetLogger<ChannelCommand>());
+            Helper.GetLogger<ChannelCommand>());
 
         var config = configRepository.Config;
         Assert.That(config?.Channels["workspace"], Is.EqualTo(new List<string> { "channel" }));
@@ -63,7 +63,7 @@ public class ChannelCommandTest
     public Task RemoveChannelTest_IfConfigNotExists()
     {
         var channel = new ChannelCommand();
-        var configRepository = new StubConfigRepository(false);
+        var configRepository = new SpyConfigRepository(false);
         var configFactory = new ConfigFactory(configRepository);
         Assert.That(
             async () => await channel.RemoveChannelAsync(
@@ -71,7 +71,7 @@ public class ChannelCommandTest
                 "channel",
                 configFactory,
                 configRepository,
-                Util.GetLogger<ChannelCommand>()),
+                Helper.GetLogger<ChannelCommand>()),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }
