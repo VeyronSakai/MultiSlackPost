@@ -33,6 +33,7 @@ public class Program
             {
                 services.AddSingleton<IConfigRepository, ConfigRepository>();
                 services.AddSingleton<IConfigFactory, ConfigFactory>();
+                services.AddSingleton<ISlackClientFactory, SlackClientFactory>();
             })
             .Run<Program>(args);
     }

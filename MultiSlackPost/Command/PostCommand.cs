@@ -13,9 +13,10 @@ public class PostCommand
     [Command(Description = "post message to channels")]
     public async Task PostAsync([Argument(Description = "body message")] string body,
         [FromService] IConfigRepository configRepository,
+        [FromService] ISlackClientFactory slackClientFactory,
         [FromService] ILogger<ChannelCommand> logger)
     {
-        var useCase = new PostUseCase(configRepository, logger);
+        var useCase = new PostUseCase(configRepository, slackClientFactory, logger);
         await useCase.PostToAllChannelsAsync(body);
     }
 }

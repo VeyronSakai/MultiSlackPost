@@ -20,10 +20,14 @@ public class ConfigRepository : IConfigRepository
             throw new CommandExitedException("Config file does not exist.", 1);
         }
 
-        var oldJson = await File.ReadAllTextAsync(Constant.ConfigFilePath);
-        return JsonSerializer.Deserialize<Config>(oldJson,
-                   new JsonSerializerOptions { IncludeFields = true }) ??
-               throw new CommandExitedException("Deserialization resulted in null.", 1);
+        var configJson = await File.ReadAllTextAsync(Constant.ConfigFilePath);
+        var config = JsonSerializer.Deserialize<Config>(configJson, new JsonSerializerOptions { IncludeFields = true });
+        if (config == null)
+        {
+            throw new CommandExitedException("Deserialization result is null.", 1);
+        }
+
+        return config;
     }
 
     public bool Exists()

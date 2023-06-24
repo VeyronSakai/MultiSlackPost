@@ -1,7 +1,6 @@
 using Cocona;
 using Microsoft.Extensions.Logging;
 using MultiSlackPost.Domain;
-using SlackAPI;
 using ZLogger;
 
 namespace MultiSlackPost.UseCase;
@@ -9,11 +8,13 @@ namespace MultiSlackPost.UseCase;
 public class PostUseCase
 {
     private readonly IConfigRepository _configRepository;
+    private readonly ISlackClientFactory _slackClientFactory;
     private readonly ILogger _logger;
 
-    public PostUseCase(IConfigRepository configRepository, ILogger logger)
+    public PostUseCase(IConfigRepository configRepository, ISlackClientFactory slackClientFactory, ILogger logger)
     {
         _configRepository = configRepository;
+        _slackClientFactory = slackClientFactory;
         _logger = logger;
     }
 
@@ -46,7 +47,7 @@ public class PostUseCase
         string body,
         string token)
     {
-        var slackClient = new SlackTaskClient(token);
+        var slackClient = _slackClientFactory.Create(token);
         var response = await slackClient.PostMessageAsync(channel, body);
         if (response.ok)
         {

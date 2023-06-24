@@ -20,7 +20,7 @@ public class TokenCommandTest
             "token",
             configFactory,
             configRepository,
-            Util.GetLogger<TokenCommand>()
+            Helper.GetLogger<TokenCommand>()
         );
         var config = await configRepository.GetAsync();
         Assert.That(config.Tokens["workspace"], Is.EqualTo("token"));
@@ -51,7 +51,7 @@ public class TokenCommandTest
             }
         });
         await token.AddTokenAsync("workspace", "token", configFactory, configRepository,
-            Util.GetLogger<TokenCommand>());
+            Helper.GetLogger<TokenCommand>());
         var config = await configRepository.GetAsync();
         Assert.That(config?.Tokens["workspace"], Is.EqualTo("token"));
     }
@@ -66,7 +66,7 @@ public class TokenCommandTest
                 "workspace",
                 configFactory,
                 configRepository,
-                Util.GetLogger<TokenCommand>()
+                Helper.GetLogger<TokenCommand>()
             ),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
@@ -101,7 +101,7 @@ public class TokenCommandTest
             "workspace0",
             configFactory,
             configRepository,
-            Util.GetLogger<TokenCommand>()
+            Helper.GetLogger<TokenCommand>()
         );
         var config = await configRepository.GetAsync();
         Assert.That(config.Tokens.ContainsKey("workspace0"), Is.False);

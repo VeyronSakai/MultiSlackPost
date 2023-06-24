@@ -21,7 +21,7 @@ public class ChannelCommandTest
             "channel",
             configFactory,
             configRepository,
-            Util.GetLogger<ChannelCommand>()
+            Helper.GetLogger<ChannelCommand>()
         );
 
         var config = await configRepository.GetAsync();
@@ -53,7 +53,7 @@ public class ChannelCommandTest
             "channel",
             configFactory,
             configRepository,
-            Util.GetLogger<ChannelCommand>());
+            Helper.GetLogger<ChannelCommand>());
 
         var config = configRepository.Config;
         Assert.That(config?.Channels["workspace"], Is.EqualTo(new List<string> { "channel" }));
@@ -71,7 +71,7 @@ public class ChannelCommandTest
                 "channel",
                 configFactory,
                 configRepository,
-                Util.GetLogger<ChannelCommand>()),
+                Helper.GetLogger<ChannelCommand>()),
             Throws.TypeOf<CommandExitedException>());
         return Task.CompletedTask;
     }

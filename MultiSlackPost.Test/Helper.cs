@@ -3,7 +3,7 @@ using ZLogger;
 
 namespace MultiSlackPost.Test;
 
-public class Util
+public static class Helper
 {
     public static ILogger<T> GetLogger<T>()
     {
