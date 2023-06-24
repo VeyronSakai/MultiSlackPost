@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Cocona;
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 
-namespace MultiSlackPost.Infrastructure;
+namespace MultiSlackPost.Infrastructures;
 
 public class ConfigRepository : IConfigRepository
 {

@@ -1,6 +1,6 @@
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 
-namespace MultiSlackPost.Test.Domain;
+namespace MultiSlackPost.Test.Domains;
 
 [TestFixture]
 public class ConfigTest

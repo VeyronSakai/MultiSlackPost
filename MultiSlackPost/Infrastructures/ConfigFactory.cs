@@ -1,7 +1,6 @@
-using Cocona;
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 
-namespace MultiSlackPost.Infrastructure;
+namespace MultiSlackPost.Infrastructures;
 
 public class ConfigFactory : IConfigFactory
 {

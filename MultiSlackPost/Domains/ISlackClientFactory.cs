@@ -1,6 +1,6 @@
 using SlackAPI;
 
-namespace MultiSlackPost.Domain;
+namespace MultiSlackPost.Domains;
 
 public interface ISlackClientFactory
 {
