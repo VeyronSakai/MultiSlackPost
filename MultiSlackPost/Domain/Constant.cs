@@ -1,6 +1,6 @@
 namespace MultiSlackPost.Domain;
 
-internal static class Const
+internal static class Constant
 {
     internal static readonly string ConfigDirPath = Path.Join(
         Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
