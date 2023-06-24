@@ -3,9 +3,9 @@ using Cocona;
 using Cysharp.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MultiSlackPost.Command;
-using MultiSlackPost.Domain;
-using MultiSlackPost.Infrastructure;
+using MultiSlackPost.Commands;
+using MultiSlackPost.Domains;
+using MultiSlackPost.Infrastructures;
 using ZLogger;
 
 namespace MultiSlackPost;

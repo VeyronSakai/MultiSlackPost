@@ -1,6 +1,6 @@
 using Cocona;
 
-namespace MultiSlackPost.Domain;
+namespace MultiSlackPost.Domains;
 
 public class Config
 {

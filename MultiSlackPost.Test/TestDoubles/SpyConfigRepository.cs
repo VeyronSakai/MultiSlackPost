@@ -1,7 +1,7 @@
 using Cocona;
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 
-namespace MultiSlackPost.Test.TestDouble;
+namespace MultiSlackPost.Test.TestDoubles;
 
 public class SpyConfigRepository : IConfigRepository
 {

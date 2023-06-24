@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Cocona;
 
-namespace MultiSlackPost.Command;
+namespace MultiSlackPost.Commands;
 
 [HasSubCommands(typeof(TokenCommand), "token", Description = "token set command")]
 [HasSubCommands(typeof(ChannelCommand), "channel", Description = "channel set command")]

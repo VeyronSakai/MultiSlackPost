@@ -1,10 +1,10 @@
 using Cocona;
-using MultiSlackPost.Command;
-using MultiSlackPost.Infrastructure;
-using MultiSlackPost.Test.TestDouble;
-using Config = MultiSlackPost.Domain.Config;
+using MultiSlackPost.Commands;
+using MultiSlackPost.Infrastructures;
+using MultiSlackPost.Test.TestDoubles;
+using Config = MultiSlackPost.Domains.Config;
 
-namespace MultiSlackPost.Test.Command;
+namespace MultiSlackPost.Test.Commands;
 
 [TestFixture]
 public class TokenCommandTest

@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Cocona;
 using Microsoft.Extensions.Logging;
-using MultiSlackPost.Domain;
-using MultiSlackPost.UseCase;
+using MultiSlackPost.Domains;
+using MultiSlackPost.UseCases;
 
-namespace MultiSlackPost.Command;
+namespace MultiSlackPost.Commands;
 
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 [SuppressMessage("Performance", "CA1822:Mark members as static")]

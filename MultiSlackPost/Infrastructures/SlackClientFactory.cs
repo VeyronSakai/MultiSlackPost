@@ -1,7 +1,7 @@
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 using SlackAPI;
 
-namespace MultiSlackPost.Infrastructure;
+namespace MultiSlackPost.Infrastructures;
 
 public class SlackClientFactory : ISlackClientFactory
 {

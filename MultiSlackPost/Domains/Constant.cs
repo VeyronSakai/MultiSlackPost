@@ -1,4 +1,4 @@
-namespace MultiSlackPost.Domain;
+namespace MultiSlackPost.Domains;
 
 internal static class Constant
 {

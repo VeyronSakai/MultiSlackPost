@@ -1,9 +1,9 @@
 using Cocona;
 using Microsoft.Extensions.Logging;
-using MultiSlackPost.Domain;
+using MultiSlackPost.Domains;
 using ZLogger;
 
-namespace MultiSlackPost.UseCase;
+namespace MultiSlackPost.UseCases;
 
 public class PostUseCase
 {
