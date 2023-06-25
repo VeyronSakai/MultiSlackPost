@@ -15,7 +15,7 @@ env:
 
 jobs:
   update_release_draft:
-    name: Update Release Draft
+    name: update release draft
     permissions:
       contents: write
       pull-requests: write
@@ -26,17 +26,8 @@ jobs:
       - uses: release-drafter/release-drafter@v5
         id: release_drafter
 
-  # draft-release:
-  #   name: Draft Release
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     tag_name: ${{ steps.release-drafter.outputs.tag_name }}
-  #   steps:
-  #     - uses: release-drafter/release-drafter@v5
-  #       id: release-drafter
-
   release:
-    name: Release
+    name: release
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
     needs: update_release_draft
