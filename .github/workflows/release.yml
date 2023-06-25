@@ -9,7 +9,6 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CSPROJ_PATH: "MultiSlackPost/MultiSlackPost.csproj"
 
 jobs:
   update_release_draft:
@@ -58,7 +57,7 @@ jobs:
           git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.semver.outputs.minor }}"
       - name: Execute dotnet pack
         run: |
-          dotnet pack "${CSPROJ_PATH}" \
+          dotnet pack ./MultiSlackPost/MultiSlackPost.csproj \
             -c Release \
             -p:Version="${VERSION}" \
             -p:PackageVersion="${VERSION}" \
@@ -67,6 +66,6 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
-          dotnet nuget push "MultiSlackPost.${VERSION}.nupkg" \
+          dotnet nuget push "mslack.${VERSION}.nupkg" \
             -s https://api.nuget.org/v3/index.json \
             -k "${NUGET_API_KEY}"
