@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: release-drafter/release-drafter@v5
         id: release_drafter
+        with:
+          commitish: main
 
   release:
     name: release
@@ -30,3 +32,4 @@ jobs:
         id: release-drafter
         with:
           publish: true
+          commitish: main
