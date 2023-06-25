@@ -7,18 +7,12 @@ on:
     types: [opened, reopened, synchronize]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   update_release_draft:
     name: update release draft
-    permissions:
-      contents: write
-      pull-requests: write
     runs-on: ubuntu-latest
     outputs:
       tag_name: ${{ steps.release_drafter.outputs.tag_name }}
@@ -36,6 +30,3 @@ jobs:
         id: release-drafter
         with:
           publish: true
-      - uses: actions/checkout@v3
-        with:
-          ref: "${{ steps.release-drafter.outputs.tag_name }}"
