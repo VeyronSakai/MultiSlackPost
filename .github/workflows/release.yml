@@ -44,8 +44,6 @@ jobs:
             core.setOutput('minor', matched[2])
             core.setOutput('patch', matched[1])
       - uses: actions/checkout@v3
-        with:
-          ref: "${{ steps.release-drafter.outputs.tag_name }}"
       - name: Update major tag
         if: steps.semver.outputs.major != '0'
         run: |
