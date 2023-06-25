@@ -12,7 +12,7 @@ CLI tool to post the same message to multiple Slack channels simultaneously.
 - .NET 6.0 or higher SDK is installed on your machine.
 - You have a Slack account.
 - You have created a Slack App for the workspace to which you want to post messages.
-- The Slack Tokens have `chat:write` permission.
+- The Slack tokens have `chat:write` permission.
 
 ## Installation
 
@@ -53,8 +53,8 @@ mslack post "Hello, World!"
 
 ### Print messages already posted to each channel to the console.
 
-To use this command, Token must have the `channels:history` permission.
+To use this command, the tokens must have the `channels:history` permission.
 
 ```bash
-maslack print
+mslack print
 ```
