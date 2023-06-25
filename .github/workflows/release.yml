@@ -39,7 +39,7 @@ jobs:
         with:
           script: |
             const VERSION = "${{ steps.release-drafter.outputs.tag_name }}"
-            const matched = VERSION.match(/(((v\d+)\.\d+).\d+)/)
+            const matched = VERSION.match(/(((\d+)\.\d+).\d+)/)
             core.setOutput('major', matched[3])
             core.setOutput('minor', matched[2])
             core.setOutput('patch', matched[1])
