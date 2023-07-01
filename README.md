@@ -1,6 +1,7 @@
 # MultiSlackPost
 
-[![Test](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml) [![Lint](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/lint.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/lint.yml) [![Release](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/release.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/release.yml)
+[![Test](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/test.yml) [![Lint](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/lint.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/lint.yml) [![Release](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/release.yml/badge.svg)](https://github.com/VeyronSakai/MultiSlackPost/actions/workflows/release.yml) [![NuGet](https://img.shields.io/nuget/v/mslack.svg)](https://www.nuget.org/packages/mslack/)
+
 
 
 CLI tool to post the same message to multiple Slack channels simultaneously.
