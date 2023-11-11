@@ -1,7 +1,7 @@
 name: Test
 
 on:
-  pull_request:
+  pull_request_target:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -11,7 +11,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
