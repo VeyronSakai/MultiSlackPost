@@ -21,7 +21,7 @@ public class ChannelCommand
         var config = await configFactory.CreateAsync();
         config.AddChannel(workspace, channel);
         await configRepository.SaveAsync(config);
-        logger.ZLogInformation("Successfully added channel info to config file.");
+        logger.ZLogInformation($"Successfully added channel info to config file.");
     }
 
     [Command("remove", Description = "remove channel info to config file")]
@@ -34,6 +34,6 @@ public class ChannelCommand
         var config = await configFactory.CreateAsync();
         config.RemoveChannel(workspace, channel);
         await configRepository.SaveAsync(config);
-        logger.ZLogInformation("Successfully removed channel info in config file.");
+        logger.ZLogInformation($"Successfully removed channel info in config file.");
     }
 }

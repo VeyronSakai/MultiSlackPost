@@ -22,7 +22,7 @@ public class TokenCommand
         config.AddToken(workspace, token);
         await configRepository.SaveAsync(config);
 
-        logger.ZLogInformation("Successfully added token info to config file.");
+        logger.ZLogInformation($"Successfully added token info to config file.");
     }
 
     [Command("remove", Description = "remove token info in config file")]
@@ -35,6 +35,6 @@ public class TokenCommand
         config.RemoveToken(workspace);
         await configRepository.SaveAsync(config);
 
-        logger.ZLogInformation("Successfully removed token info in config file.");
+        logger.ZLogInformation($"Successfully removed token info in config file.");
     }
 }
