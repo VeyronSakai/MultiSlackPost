@@ -17,6 +17,7 @@
         <PackageReference Include="SlackAPI" Version="1.1.14"/>
         <PackageReference Include="ZLogger" Version="2.4.1"/>
         <None Include="../README.md" Pack="true" PackagePath="/"/>
+        <PackageReference Include="ZString" Version="2.6.0" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cocona;
-using Cysharp.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using MultiSlackPost.Commands;
 using MultiSlackPost.Domains;
@@ -26,14 +26,16 @@ public class Program
                 logging.ClearProviders();
                 logging.AddZLoggerConsole(options =>
                 {
-                    var prefixFormat = ZString.PrepareUtf8<LogLevel>("[{0}]: ");
-                    options.PrefixFormatter = (writer, info) =>
+                    options.UsePlainTextFormatter(formatter =>
                     {
-                        if (info.LogLevel != LogLevel.None)
+                        formatter.SetPrefixFormatter($"[{0}]: ", (in MessageTemplate template, in LogInfo info) =>
                         {
-                            prefixFormat.FormatTo(ref writer, info.LogLevel);
-                        }
-                    };
+                            if (info.LogLevel != LogLevel.None)
+                            {
+                                template.Format(info.Category);
+                            }
+                        });
+                    });
                 });
             })
             .ConfigureServices(services =>
