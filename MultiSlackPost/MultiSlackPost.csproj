@@ -15,7 +15,7 @@
     <ItemGroup>
         <PackageReference Include="Cocona" Version="2.2.0"/>
         <PackageReference Include="SlackAPI" Version="1.1.14"/>
-        <PackageReference Include="ZLogger" Version="2.5.4"/>
+        <PackageReference Include="ZLogger" Version="2.5.5"/>
         <None Include="../README.md" Pack="true" PackagePath="/"/>
         <PackageReference Include="ZString" Version="2.6.0" />
     </ItemGroup>
